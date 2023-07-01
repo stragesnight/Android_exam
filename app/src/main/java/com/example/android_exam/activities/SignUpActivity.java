@@ -23,9 +23,10 @@ public class SignUpActivity extends AppCompatActivity implements ClientEventHand
 
         _client = new ChatClient("127.0.0.1", 4444, this);
 
-        if (storageManager.loadAuthData() != null) {
-            Intent intent = new Intent(this, ChatListActivity.class);
-            startActivity(intent);
+        User user = storageManager.loadAuthData();
+
+        if (user != null) {
+            ChatClient.getInstance().signIn(user);
             return;
         }
 
@@ -64,6 +65,17 @@ public class SignUpActivity extends AppCompatActivity implements ClientEventHand
 
     private void onTextViewHasAccountClick(View v) {
         Intent intent = new Intent(this, SignInActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onSignIn(boolean ok) {
+        if (!ok) {
+            Toast.makeText(this, R.string.error_unable_to_signin, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Intent intent = new Intent(this, ChatListActivity.class);
         startActivity(intent);
     }
 
