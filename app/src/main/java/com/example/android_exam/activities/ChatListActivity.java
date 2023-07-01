@@ -17,6 +17,7 @@ import java.util.List;
 
 public class ChatListActivity extends AppCompatActivity implements ClientEventHandler {
     private ChatAdapter _adapter;
+    private Chat _connectCandidate = null;
 
 
     @Override
@@ -49,8 +50,19 @@ public class ChatListActivity extends AppCompatActivity implements ClientEventHa
     }
 
     public void onChatClick(Chat chat) {
+        ChatClient.getInstance().connect(chat.getName());
+        _connectCandidate = chat;
+    }
+
+    @Override
+    public void onConnect(boolean ok) {
+        if (!ok) {
+            Toast.makeText(this, R.string.error_unable_to_connect, Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("chatName", chat.getName());
+        intent.putExtra("chatName", _connectCandidate.getName());
         startActivity(intent);
     }
 
