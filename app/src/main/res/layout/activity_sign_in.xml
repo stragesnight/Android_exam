@@ -17,16 +17,25 @@
         android:layout_height="wrap_content"
         android:text="@string/sign_in"/>
     <EditText
+        android:id="@+id/edit_text_signin_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/username" />
     <EditText
+        android:id="@+id/edit_text_signin_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password" />
     <Button
+        android:id="@+id/button_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/sign_in"/>
+    <TextView
+        android:id="@+id/text_view_has_no_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/has_no_account_yet" />
 </LinearLayout>

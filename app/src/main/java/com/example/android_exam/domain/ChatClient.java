@@ -58,8 +58,9 @@ public class ChatClient implements Runnable {
         _handlers.push(handler);
     }
 
-    public void resetHandler() {
-        _handlers.pop();
+    public void resetHandler(ClientEventHandler handler) {
+        if (_handlers.peek() == handler)
+            _handlers.pop();
     }
 
     @Override
