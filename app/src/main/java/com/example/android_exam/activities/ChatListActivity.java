@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android_exam.R;
 import com.example.android_exam.adapters.ChatAdapter;
@@ -37,6 +38,11 @@ public class ChatListActivity extends AppCompatActivity implements ClientEventHa
 
     @Override
     public void onGetChatList(boolean ok, List<Chat> chats) {
+        if (!ok) {
+            Toast.makeText(this, R.string.error_unable_to_get_chat_list, Toast.LENGTH_LONG).show();
+            return;
+        }
+
         ListView listViewChats = findViewById(R.id.list_view_chats);
         _adapter = new ChatAdapter(this, chats);
         listViewChats.setAdapter(_adapter);

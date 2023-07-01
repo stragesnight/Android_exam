@@ -36,6 +36,7 @@ public class ChatClient implements Runnable {
     private PrintWriter _out;
     private BufferedReader _in;
     private boolean _keepRunning = true;
+    private User _currentUser = null;
 
 
     public ChatClient(String hostAddr, int port, ClientEventHandler handler) {
@@ -52,6 +53,10 @@ public class ChatClient implements Runnable {
 
     public static ChatClient getInstance() {
         return _instance;
+    }
+
+    public User getCurrentUser() {
+        return _currentUser;
     }
 
     public void setHandler(ClientEventHandler handler) {
@@ -107,6 +112,7 @@ public class ChatClient implements Runnable {
 
     public void signIn(User user) {
         sendCmd(Cmd.SIGN_IN, user.getUsername(), user.getPassword());
+        _currentUser = user;
     }
 
     public void connect(String chatName) {

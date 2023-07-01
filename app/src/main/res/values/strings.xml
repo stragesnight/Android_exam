@@ -13,4 +13,7 @@
     <string name="error_unmatched_password">Passwords should match</string>
     <string name="error_unable_to_signup">Unable to sign up</string>
     <string name="error_unable_to_signin">Unable to sign in</string>
+    <string name="error_unable_to_get_chat_list">Unable to get chat list</string>
+    <string name="error_unable_to_get_message_list">Unable to get message list</string>
+    <string name="error_unable_to_send_message">Unable to send message</string>
 </resources>
