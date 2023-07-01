@@ -1,14 +1,16 @@
-package com.example.android_exam;
+package com.example.android_exam.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ChatListActivity extends AppCompatActivity {
+import com.example.android_exam.R;
+
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_list);
+        setContentView(R.layout.activity_main);
     }
 }
