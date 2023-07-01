@@ -1,5 +1,9 @@
 package com.example.android_exam.models;
 
+import android.util.Log;
+
+import java.io.*;
+import java.text.*;
 import java.util.Date;
 
 public class Message {
@@ -12,6 +16,16 @@ public class Message {
         _senderUsername = username;
         _body = body;
         _sendDate = sendDate;
+    }
+
+    public Message(BufferedReader reader) {
+        try {
+            _senderUsername = reader.readLine();
+            _body = reader.readLine().replace("\\n", "\n");
+            _sendDate = new SimpleDateFormat("ss:MM").parse(reader.readLine());
+        } catch (Exception e) {
+            Log.d("EXCEPTION", e.getMessage());
+        }
     }
 
     public String getSenderUsername() {
