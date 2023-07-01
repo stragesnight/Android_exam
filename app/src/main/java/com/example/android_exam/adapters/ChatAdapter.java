@@ -7,6 +7,7 @@ import android.widget.*;
 import androidx.annotation.*;
 
 import com.example.android_exam.R;
+import com.example.android_exam.activities.ChatListActivity;
 import com.example.android_exam.models.Chat;
 
 import java.util.List;
@@ -27,11 +28,8 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
         Chat chat = _chats.get(position);
         ((TextView)convertView.findViewById(R.id.chat_name)).setText(chat.getName());
         ((TextView)convertView.findViewById(R.id.chat_last_message)).setText(chat.getLastMessage());
-        return convertView;
-    }
+        convertView.setOnClickListener(v -> ((ChatListActivity)getContext()).onChatClick(chat));
 
-    public void addChat(Chat chat) {
-        _chats.add(chat);
-        add(chat);
+        return convertView;
     }
 }
