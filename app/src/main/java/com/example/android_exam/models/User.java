@@ -2,8 +2,9 @@ package com.example.android_exam.models;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import java.io.BufferedReader;
-import java.io.IOException;
 
 public class User {
     private String _username;
@@ -30,5 +31,11 @@ public class User {
 
     public String getPassword() {
         return _password;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return _username + '\n' + _password + '\n';
     }
 }
