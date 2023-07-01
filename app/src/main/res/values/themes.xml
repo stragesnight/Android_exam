@@ -5,5 +5,12 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <style name="App.MessageCard" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="android:textColor">@color/design_default_color_on_primary</item>
+        <item name="android:background">@drawable/rounded_card</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="colorSurface">@color/design_default_color_primary</item>
+    </style>
+
     <style name="Theme.Android_exam" parent="Base.Theme.Android_exam" />
 </resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:theme="@style/App.MessageCard"
+    android:padding="12dp">
+    <TextView
+        android:id="@+id/message_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:textSize="20dp"
+        android:text="username"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:minWidth="200dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/message_body"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:paddingBottom="20dp"
+            android:textSize="16dp"
+            android:text="message body lorem ipsum lorem jasdka jsdlkajs jalsdasjdkasjdkjaskdajsdkajaksjdaksdaksdjaksjaskdajsdkaajsldkajsdklasjdklasjdaksdj jaksd jaslkd jalskdj alks jdalks djalksjdalk sdjqwoid jqiwo djj" />
+        <TextView
+            android:id="@+id/message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/material_on_primary_disabled"
+            android:textSize="16dp"
+            android:text="11:22" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
