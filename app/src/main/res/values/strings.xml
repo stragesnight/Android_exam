@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Android_exam</string>
-    <string name="add_server">Add server</string>
+    <string name="add_room">Add room</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="already_has_account">I already have an account</string>
 </resources>

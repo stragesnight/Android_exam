@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Android_exam"
         tools:targetApi="31">
         <activity
+            android:name=".adapters.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".adapters.SignInActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChatListActivity"
             android:exported="false" />
         <activity
