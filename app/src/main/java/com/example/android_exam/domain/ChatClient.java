@@ -29,7 +29,7 @@ public class ChatClient implements Runnable {
     private static ChatClient _instance;
 
     private String _hostAddr;
-    private short _port;
+    private int _port;
     private Stack<ClientEventHandler> _handlers;
 
     private Socket _socket;
@@ -38,7 +38,7 @@ public class ChatClient implements Runnable {
     private boolean _keepRunning = true;
 
 
-    public ChatClient(String hostAddr, short port, ClientEventHandler handler) {
+    public ChatClient(String hostAddr, int port, ClientEventHandler handler) {
         if (_instance != null)
             return;
 

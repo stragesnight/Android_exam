@@ -17,23 +17,28 @@
         android:layout_height="wrap_content"
         android:text="@string/sign_up"/>
     <EditText
+        android:id="@+id/edit_text_signup_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/username" />
     <EditText
+        android:id="@+id/edit_text_signup_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password" />
     <EditText
+        android:id="@+id/edit_text_signup_password_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/confirm_password" />
     <Button
+        android:id="@+id/button_sign_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/sign_up"/>
     <TextView
+        android:id="@+id/text_view_has_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

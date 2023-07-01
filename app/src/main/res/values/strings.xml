@@ -7,4 +7,8 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="already_has_account">I already have an account</string>
+    <string name="error_invalid_username">Username is required</string>
+    <string name="error_invalid_password">Password is required</string>
+    <string name="error_unmatched_password">Passwords should match</string>
+    <string name="error_unable_to_signup">Unable to sign up</string>
 </resources>
