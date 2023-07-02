@@ -17,7 +17,7 @@
     <string name="error_unable_to_signin">Unable to sign in</string>
     <string name="error_unable_to_get_chat_list">Unable to get chat list</string>
     <string name="error_unable_to_get_message_list">Unable to get message list</string>
+    <string name="error_unable_to_get_user_list">Unable to get user list</string>
     <string name="error_unable_to_connect">Unable to connect to given chat</string>
     <string name="error_unable_to_send_message">Unable to send message</string>
-    <string name="error_unable_to_add_chat">Unable to create new chat</string>
 </resources>

@@ -6,15 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.*;
 
 import com.example.android_exam.R;
+import com.example.android_exam.adapters.ChatAdapter;
+import com.example.android_exam.adapters.UserAdapter;
 import com.example.android_exam.domain.*;
 import com.example.android_exam.models.Chat;
+import com.example.android_exam.models.User;
+
+import java.util.List;
 
 public class CreateChatActivity extends AppCompatActivity implements ClientEventHandler {
-    private String _chatName;
+    private UserAdapter _userAdapter;
 
 
     @Override
@@ -23,24 +30,25 @@ public class CreateChatActivity extends AppCompatActivity implements ClientEvent
         setContentView(R.layout.activity_create_chat);
 
         ChatClient.getInstance().setHandler(this);
+        ChatClient.getInstance().getUserList();
 
-        findViewById(R.id.button_go_add_chat).setOnClickListener(this::onButtonGoAddChatClick);
+        ((EditText)findViewById(R.id.edit_text_search_username)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                _userAdapter.applyFilter(s.toString());
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ChatClient.getInstance().resetHandler(this);
-    }
-
-    @Override
-    public void onCreateChat(boolean ok) {
-        if (!ok) {
-            Toast.makeText(this, R.string.error_unable_to_add_chat, LENGTH_LONG).show();
-            return;
-        }
-
-        ChatClient.getInstance().connect(_chatName);
     }
 
     @Override
@@ -55,13 +63,19 @@ public class CreateChatActivity extends AppCompatActivity implements ClientEvent
         startActivity(intent);
     }
 
-    private void onButtonGoAddChatClick(View v) {
-        _chatName = ((EditText)findViewById(R.id.edit_text_chat_name)).getText().toString();
-        if (_chatName.trim().isEmpty()) {
-            Toast.makeText(this, R.string.error_invalid_chat_name, LENGTH_LONG).show();
+    @Override
+    public void onGetUserList(boolean ok, List<User> users) {
+        if (!ok) {
+            Toast.makeText(this, R.string.error_unable_to_get_user_list, LENGTH_LONG).show();
             return;
         }
 
-        ChatClient.getInstance().addChat(_chatName);
+        _userAdapter = new UserAdapter(this, users);
+        ListView listView = findViewById(R.id.list_view_users);
+        listView.setAdapter(_userAdapter);
+    }
+
+    public void onUserClick(User user) {
+        ChatClient.getInstance().connect(user.getUsername());
     }
 }

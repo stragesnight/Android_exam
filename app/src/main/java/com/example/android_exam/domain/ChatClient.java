@@ -17,11 +17,11 @@ public class ChatClient implements Runnable {
         SIGN_IN,
         CONNECT,
         DISCONNECT,
-        ADD_CHAT,
         SEND_MESSAGE,
         GET_MESSAGE,
         GET_CHAT_LIST,
         GET_MESSAGE_LIST,
+        GET_USER_LIST,
         QUIT
     }
 
@@ -56,14 +56,14 @@ public class ChatClient implements Runnable {
         _thread = new Thread(_instance);
         _thread.start();
 
-        _instance._writer = new ChatClientWriter();
-        _instance._writerThread = new Thread(_instance._writer);
-        _instance._writerThread.start();
-
         _instance._hostAddr = hostAddr;
         _instance._port = port;
         _instance._handlers = new Stack<>();
         _instance._handlers.push(handler);
+
+        _instance._writer = new ChatClientWriter();
+        _instance._writerThread = new Thread(_instance._writer);
+        _instance._writerThread.start();
 
         return _instance;
     }
@@ -147,10 +147,6 @@ public class ChatClient implements Runnable {
         sendCmd(Cmd.DISCONNECT);
     }
 
-    public void addChat(String name) {
-        sendCmd(Cmd.ADD_CHAT, name);
-    }
-
     public void sendMessage(String messageBody) {
         sendCmd(Cmd.SEND_MESSAGE, messageBody);
     }
@@ -161,6 +157,10 @@ public class ChatClient implements Runnable {
 
     public void getMessageList() {
         sendCmd(Cmd.GET_MESSAGE_LIST);
+    }
+
+    public void getUserList() {
+        sendCmd(Cmd.GET_USER_LIST);
     }
 
     public void quit() {
@@ -199,9 +199,6 @@ public class ChatClient implements Runnable {
             case DISCONNECT:
                 handler.onDisconnect(ok);
                 break;
-            case ADD_CHAT:
-                handler.onCreateChat(ok);
-                break;
             case SEND_MESSAGE:
                 handler.onSendMessage(ok);
                 break;
@@ -213,6 +210,9 @@ public class ChatClient implements Runnable {
                 break;
             case GET_MESSAGE_LIST:
                 handler.onGetMessageList(ok, readList(Message::new));
+                break;
+            case GET_USER_LIST:
+                handler.onGetUserList(ok, readList(User::new));
                 break;
             default:
                 break;

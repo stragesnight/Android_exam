@@ -3,28 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="64dp"
-    android:paddingRight="64dp"
-    tools:context=".activities.CreateChatActivity">
-    <TextView
-        android:layout_width="wrap_content"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp"
-        android:layout_height="wrap_content"
-        android:text="@string/add_chat"/>
+    tools:context=".activities.ChatListActivity">
     <EditText
-        android:id="@+id/edit_text_chat_name"
+        android:id="@+id/edit_text_search_username"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/chat_name" />
-    <Button
-        android:id="@+id/button_go_add_chat"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="@string/username" />
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/add_chat"/>
+        android:layout_height="0dp"
+        android:layout_weight="12">
+        <ListView
+            android:id="@+id/list_view_users"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </LinearLayout>
