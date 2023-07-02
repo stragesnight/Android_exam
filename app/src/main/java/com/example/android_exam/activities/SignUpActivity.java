@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
@@ -24,10 +25,8 @@ public class SignUpActivity extends AppCompatActivity implements ClientEventHand
         StorageManager storageManager = new StorageManager(this);
         User user = storageManager.loadAuthData();
 
-        if (user != null) {
+        if (user != null)
             ChatClient.getInstance().signIn(user);
-            return;
-        }
 
         findViewById(R.id.button_sign_up).setOnClickListener(this::onButtonSignUpClick);
         findViewById(R.id.text_view_has_account).setOnClickListener(this::onTextViewHasAccountClick);

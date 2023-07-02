@@ -20,7 +20,7 @@ public class ChatClientWriter implements Runnable {
                 else
                     _queue.poll().accept(0);
             } catch (Exception e) {
-                Log.d("EXCEPTION", e.getMessage());
+                Log.d("ChatClientWriter.run_EXCEPTION", e.getMessage());
             }
         }
     }

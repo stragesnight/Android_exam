@@ -1,7 +1,8 @@
 package com.example.android_exam.domain;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.android_exam.models.*;
 
@@ -9,6 +10,7 @@ import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.function.*;
 
 public class ChatClient implements Runnable {
@@ -45,9 +47,12 @@ public class ChatClient implements Runnable {
     private boolean _keepRunning = true;
     private User _currentUser = null;
     private boolean _connected = false;
+    private Handler _mainHandler = null;
 
 
-    private ChatClient() { }
+    private ChatClient() {
+        _mainHandler = new Handler(Looper.getMainLooper());
+    }
 
     public static ChatClient init(String hostAddr, int port, ClientEventHandler handler) {
         if (_instance != null)
@@ -95,11 +100,15 @@ public class ChatClient implements Runnable {
 
         while (_keepRunning) {
             try {
+                if (!_in.ready())
+                    TimeUnit.MILLISECONDS.sleep(100);
+
                 Cmd cmd = Cmd.valueOf(_in.readLine());
                 boolean ok = _in.readLine().compareTo(Status.OK.name()) == 0;
                 handleCmd(ok, cmd);
             } catch (Exception e) {
-                Log.d("EXCEPTION", e.getMessage());
+                Log.d("run_EXCEPTION", e.getClass().getName());
+                Log.d("run_EXCEPTION", e.getMessage());
             }
         }
 
@@ -108,7 +117,7 @@ public class ChatClient implements Runnable {
             _out.close();
             _socket.close();
         } catch (Exception e) {
-            Log.d("EXCEPTION", e.getMessage());
+            Log.d("run_EXCEPTION", e.getMessage());
         }
     }
 
@@ -180,7 +189,7 @@ public class ChatClient implements Runnable {
 
             return true;
         } catch (IOException e) {
-            Log.d("EXCEPTION", e.getMessage());
+            Log.d("connect_EXCEPTION", e.getMessage());
             return false;
         }
     }
@@ -193,31 +202,36 @@ public class ChatClient implements Runnable {
 
         switch (cmd) {
             case SIGN_UP:
-                handler.onSignUp(ok);
+                _mainHandler.post(() -> handler.onSignUp(ok));
                 break;
             case SIGN_IN:
-                handler.onSignIn(ok);
+                _mainHandler.post(() -> handler.onSignIn(ok));
                 break;
             case CONNECT:
-                handler.onConnect(ok, new Chat(_in));
+                Chat chat = ok ? new Chat(_in) : null;
+                _mainHandler.post(() -> handler.onConnect(ok, chat));
                 break;
             case DISCONNECT:
-                handler.onDisconnect(ok);
+                _mainHandler.post(() -> handler.onDisconnect(ok));
                 break;
             case SEND_MESSAGE:
-                handler.onSendMessage(ok);
+                _mainHandler.post(() -> handler.onSendMessage(ok));
                 break;
             case GET_MESSAGE:
-                handler.onGetMessage(ok, new Message(_in));
+                Message msg = ok ? new Message(_in) : null;
+                _mainHandler.post(() -> handler.onGetMessage(ok, msg));
                 break;
             case GET_CHAT_LIST:
-                handler.onGetChatList(ok, readList(Chat::new));
+                List<Chat> chats = ok ? readList(Chat::new) : null;
+                _mainHandler.post(() -> handler.onGetChatList(ok, chats));
                 break;
             case GET_MESSAGE_LIST:
-                handler.onGetMessageList(ok, readList(Message::new));
+                List<Message> messages = ok ? readList(Message::new) : null;
+                _mainHandler.post(() -> handler.onGetMessageList(ok, messages));
                 break;
             case GET_USER_LIST:
-                handler.onGetUserList(ok, readList(User::new));
+                List<User> users = ok ? readList(User::new) : null;
+                _mainHandler.post(() -> handler.onGetUserList(ok, users));
                 break;
             default:
                 break;

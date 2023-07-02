@@ -24,7 +24,7 @@ public class StorageManager {
             writer.close();
             return true;
         } catch (Exception e) {
-            Log.d("EXCEPTION", e.getMessage());
+            Log.d("saveAuthData_EXCEPTION", e.getMessage());
             return false;
         }
     }
@@ -37,7 +37,7 @@ public class StorageManager {
             reader.close();
             return user;
         } catch (Exception e) {
-            Log.d("EXCEPTION", e.getMessage());
+            Log.d("loadAuthData_EXCEPTION", e.getMessage());
             return null;
         }
     }
