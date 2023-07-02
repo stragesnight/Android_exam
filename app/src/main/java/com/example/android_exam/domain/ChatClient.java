@@ -1,6 +1,7 @@
 package com.example.android_exam.domain;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.android_exam.models.*;
 
@@ -15,6 +16,7 @@ public class ChatClient implements Runnable {
         SIGN_IN,
         CONNECT,
         DISCONNECT,
+        ADD_CHAT,
         SEND_MESSAGE,
         GET_MESSAGE,
         GET_CHAT_LIST,
@@ -95,6 +97,9 @@ public class ChatClient implements Runnable {
     }
 
     public void sendCmd(Cmd cmd, Object... params) {
+        if (_out == null || _out.checkError())
+            return;
+
         _out.write(cmd.name());
         _out.write('\n');
 
@@ -121,6 +126,10 @@ public class ChatClient implements Runnable {
 
     public void disconnect() {
         sendCmd(Cmd.DISCONNECT);
+    }
+
+    public void addChat(String name) {
+        sendCmd(Cmd.ADD_CHAT, name);
     }
 
     public void sendMessage(String messageBody) {
@@ -162,10 +171,13 @@ public class ChatClient implements Runnable {
                 handler.onSignIn(ok);
                 break;
             case CONNECT:
-                handler.onConnect(ok);
+                handler.onConnect(ok, new Chat(_in));
                 break;
             case DISCONNECT:
                 handler.onDisconnect(ok);
+                break;
+            case ADD_CHAT:
+                handler.onCreateChat(ok);
                 break;
             case SEND_MESSAGE:
                 handler.onSendMessage(ok);

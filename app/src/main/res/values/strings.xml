@@ -1,15 +1,17 @@
 <resources>
     <string name="app_name">Android_exam</string>
-    <string name="add_chat">Add chat</string>
     <string name="sign_up">Sign up</string>
     <string name="sign_in">Sign in</string>
+    <string name="add_chat">Create new chat</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="chat_name">Chat name</string>
     <string name="already_has_account">I already have an account</string>
     <string name="has_no_account_yet">I don\'t have an account yet</string>
     <string name="error_invalid_username">Username is required</string>
     <string name="error_invalid_password">Password is required</string>
+    <string name="error_invalid_chat_name">Chat name is required</string>
     <string name="error_unmatched_password">Passwords should match</string>
     <string name="error_unable_to_signup">Unable to sign up</string>
     <string name="error_unable_to_signin">Unable to sign in</string>
@@ -17,4 +19,5 @@
     <string name="error_unable_to_get_message_list">Unable to get message list</string>
     <string name="error_unable_to_connect">Unable to connect to given chat</string>
     <string name="error_unable_to_send_message">Unable to send message</string>
+    <string name="error_unable_to_add_chat">Unable to create new chat</string>
 </resources>

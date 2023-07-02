@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 
 import com.example.android_exam.R;
 import com.example.android_exam.adapters.ChatAdapter;
@@ -17,7 +16,6 @@ import java.util.List;
 
 public class ChatListActivity extends AppCompatActivity implements ClientEventHandler {
     private ChatAdapter _adapter;
-    private Chat _connectCandidate = null;
 
 
     @Override
@@ -51,22 +49,22 @@ public class ChatListActivity extends AppCompatActivity implements ClientEventHa
 
     public void onChatClick(Chat chat) {
         ChatClient.getInstance().connect(chat.getName());
-        _connectCandidate = chat;
     }
 
     @Override
-    public void onConnect(boolean ok) {
+    public void onConnect(boolean ok, Chat chat) {
         if (!ok) {
             Toast.makeText(this, R.string.error_unable_to_connect, Toast.LENGTH_LONG).show();
             return;
         }
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("chatName", _connectCandidate.getName());
+        intent.putExtra("chatName", chat.getName());
         startActivity(intent);
     }
 
     private void onButtonAddChatClick(View v) {
-        // TODO
+        Intent intent = new Intent(this, CreateChatActivity.class);
+        startActivity(intent);
     }
 }
