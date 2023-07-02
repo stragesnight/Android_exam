@@ -1,40 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:theme="@style/App.MessageCard"
-    android:padding="12dp">
-    <TextView
-        android:id="@+id/message_username"
+    android:orientation="horizontal"
+    android:layout_marginBottom="16dp">
+    <LinearLayout
+        android:id="@+id/message_padder"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+    <LinearLayout
+        android:id="@+id/layout_message_main"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp"
-        android:textSize="20dp"
-        android:text="username"/>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:minWidth="200dp"
-        android:layout_height="wrap_content">
+        android:theme="@style/App.MessageCard"
+        android:padding="10dp">
         <TextView
-            android:id="@+id/message_body"
+            android:id="@+id/message_username"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:paddingBottom="20dp"
-            android:textSize="16dp"
-            android:text="message body lorem ipsum lorem jasdka jsdlkajs jalsdasjdkasjdkjaskdajsdkajaksjdaksdaksdjaksjaskdajsdkaajsldkajsdklasjdklasjdaksdj jaksd jaslkd jalskdj alks jdalks djalksjdalk sdjqwoid jqiwo djj" />
-        <TextView
-            android:id="@+id/message_time"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:textSize="20dp"
+            android:text="username"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textColor="@color/material_on_primary_disabled"
-            android:textSize="16dp"
-            android:text="11:22" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:minWidth="150dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/message_body"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:paddingBottom="20dp"
+                android:textSize="16dp"
+                android:text="test text" />
+            <TextView
+                android:id="@+id/message_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/material_on_primary_disabled"
+                android:paddingRight="8dp"
+                android:textSize="16dp"
+                android:text="11:22" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -6,7 +6,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <TextView
+        android:id="@+id/text_view_chat_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/App.Header"
+        android:text="" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -25,6 +30,8 @@
             android:id="@+id/edit_text_message"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:inputType="text"
+            android:maxLines="1"
             android:layout_weight="63" />
         <Button
             android:id="@+id/button_send_message"

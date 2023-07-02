@@ -6,6 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ChatListActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/App.Header"
+        android:text="@string/app_name" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

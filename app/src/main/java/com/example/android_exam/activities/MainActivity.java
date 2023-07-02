@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements ClientEventHandle
         listView.setAdapter(_messageAdapter);
 
         findViewById(R.id.button_send_message).setOnClickListener(this::onButtonSendMessageClick);
+        ((TextView)findViewById(R.id.text_view_chat_username)).setText(getIntent().getStringExtra("chatName"));
     }
 
     @Override
