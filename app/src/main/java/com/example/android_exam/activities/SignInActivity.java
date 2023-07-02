@@ -14,6 +14,8 @@ import com.example.android_exam.domain.*;
 import com.example.android_exam.models.User;
 
 public class SignInActivity extends AppCompatActivity implements ClientEventHandler {
+    private StorageManager _storageManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,7 @@ public class SignInActivity extends AppCompatActivity implements ClientEventHand
         setContentView(R.layout.activity_sign_in);
 
         ChatClient.getInstance().setHandler(this);
+        _storageManager = new StorageManager();
 
         findViewById(R.id.button_sign_in).setOnClickListener(this::onButtonSignInClick);
         findViewById(R.id.text_view_has_no_account).setOnClickListener(this::onTextViewHasNoAccountClick);
@@ -60,6 +63,8 @@ public class SignInActivity extends AppCompatActivity implements ClientEventHand
             Toast.makeText(this, R.string.error_unable_to_signin, LENGTH_LONG).show();
             return;
         }
+
+        _storageManager.saveAuthData(ChatClient.getInstance().getCurrentUser());
 
         Intent intent = new Intent(this, ChatListActivity.class);
         startActivity(intent);
