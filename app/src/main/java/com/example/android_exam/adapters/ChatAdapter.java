@@ -23,6 +23,7 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
 
     public void setChats(List<Chat> chats) {
         _chats = new ArrayList<>(chats);
+        clear();
         addAll(chats);
     }
 

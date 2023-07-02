@@ -1,14 +1,10 @@
 package com.example.android_exam.adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.DisplayMetrics;
 import android.view.*;
 import android.widget.*;
 
 import androidx.annotation.*;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.core.widget.TextViewCompat;
 
 import com.example.android_exam.domain.ChatClient;
 import com.example.android_exam.models.Message;
@@ -28,6 +24,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
     public void setMessages(List<Message> messages) {
         _messages = new ArrayList<>(messages);
+        clear();
         addAll(messages);
     }
 
@@ -45,10 +42,11 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         if (message.getSenderUsername().compareTo(ChatClient.getInstance().getCurrentUser().getUsername()) == 0) {
             view.findViewById(R.id.layout_message_main).setBackground(
                     getContext().getDrawable(R.drawable.rounded_card_self));
+            view.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         } else {
-            ((ViewGroup)view).removeView(view.findViewById(R.id.message_padder));
             view.findViewById(R.id.layout_message_main).setBackground(
                     getContext().getDrawable(R.drawable.rounded_card));
+            view.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
         }
 
         return view;

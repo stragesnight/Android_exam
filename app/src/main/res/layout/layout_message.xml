@@ -4,13 +4,19 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:layout_marginBottom="16dp">
+    android:layoutDirection="ltr"
+    android:paddingBottom="16dp">
     <LinearLayout
-        android:id="@+id/message_padder"
-        android:orientation="vertical"
+        android:id="@+id/message_dummy_container"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_height="0dp">
+        <LinearLayout
+            android:id="@+id/message_padder"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/layout_message_main"
         android:orientation="vertical"

@@ -23,6 +23,7 @@ public class UserAdapter extends ArrayAdapter<User> {
 
     public void setUsers(List<User> users) {
         _users = new ArrayList<>(users);
+        clear();
         addAll(users);
     }
 
