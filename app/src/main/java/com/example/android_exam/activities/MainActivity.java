@@ -33,6 +33,13 @@ public class MainActivity extends AppCompatActivity implements ClientEventHandle
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        ChatClient.getInstance().setHandler(this);
+        ChatClient.getInstance().getMessageList();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         ChatClient.getInstance().disconnect();
