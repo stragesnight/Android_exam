@@ -19,10 +19,9 @@ public class SignUpActivity extends AppCompatActivity implements ClientEventHand
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        StorageManager storageManager = new StorageManager();
-
         _client = ChatClient.init("178.54.217.55", 4444, this);
 
+        StorageManager storageManager = new StorageManager(this);
         User user = storageManager.loadAuthData();
 
         if (user != null) {

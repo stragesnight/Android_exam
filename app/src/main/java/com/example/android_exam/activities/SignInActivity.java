@@ -23,7 +23,7 @@ public class SignInActivity extends AppCompatActivity implements ClientEventHand
         setContentView(R.layout.activity_sign_in);
 
         ChatClient.getInstance().setHandler(this);
-        _storageManager = new StorageManager();
+        _storageManager = new StorageManager(this);
 
         findViewById(R.id.button_sign_in).setOnClickListener(this::onButtonSignInClick);
         findViewById(R.id.text_view_has_no_account).setOnClickListener(this::onTextViewHasNoAccountClick);

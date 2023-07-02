@@ -44,6 +44,7 @@ public class ChatClient implements Runnable {
     private BufferedReader _in;
     private boolean _keepRunning = true;
     private User _currentUser = null;
+    private boolean _connected = false;
 
 
     private ChatClient() { }
@@ -87,7 +88,7 @@ public class ChatClient implements Runnable {
 
     @Override
     public void run() {
-        if (!connect()) {
+        if (!_connected && !connect()) {
             Log.d("ERROR", "Unable to connect to server");
             return;
         }
@@ -113,6 +114,9 @@ public class ChatClient implements Runnable {
 
     public void sendCmd(Cmd cmd, Object... params) {
         _writer.enqueue(i -> {
+            if (!_connected)
+                connect();
+
             if (_out == null || _out.checkError()) {
                 Log.d("ERROR", "_out == null");
                 return;
@@ -172,6 +176,7 @@ public class ChatClient implements Runnable {
             _socket = new Socket(_hostAddr, _port);
             _out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(_socket.getOutputStream(), StandardCharsets.UTF_8)), false);
             _in = new BufferedReader(new InputStreamReader(_socket.getInputStream(), StandardCharsets.UTF_8));
+            _connected = true;
 
             return true;
         } catch (IOException e) {
