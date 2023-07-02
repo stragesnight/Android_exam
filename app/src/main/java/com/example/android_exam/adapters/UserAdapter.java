@@ -17,7 +17,7 @@ public class UserAdapter extends ArrayAdapter<User> {
 
 
     public UserAdapter(@NonNull Context context, List<User> users) {
-        super(context, R.layout.layout_user);
+        super(context, R.layout.layout_user, R.id.user_name);
         _users = users;
         addAll(users);
     }
@@ -25,11 +25,12 @@ public class UserAdapter extends ArrayAdapter<User> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View view = super.getView(position, convertView, parent);
         User user = _users.get(position);
-        ((TextView)convertView.findViewById(R.id.user_name)).setText(user.getUsername());
-        convertView.setOnClickListener(v -> ((CreateChatActivity)getContext()).onUserClick(user));
+        ((TextView)view.findViewById(R.id.user_name)).setText(user.getUsername());
+        view.setOnClickListener(v -> ((CreateChatActivity)getContext()).onUserClick(user));
 
-        return convertView;
+        return view;
     }
 
     public void applyFilter(String username) {

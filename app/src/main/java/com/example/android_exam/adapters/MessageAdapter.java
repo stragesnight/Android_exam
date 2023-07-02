@@ -17,7 +17,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
 
     public MessageAdapter(@NonNull Context context, List<Message> messages) {
-        super(context, R.layout.layout_message);
+        super(context, R.layout.layout_message, R.id.message_username);
         _messages = messages;
         addAll(messages);
     }
@@ -25,14 +25,15 @@ public class MessageAdapter extends ArrayAdapter<Message> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View view = super.getView(position, convertView, parent);
         Message message = _messages.get(position);
         String time = new SimpleDateFormat("hh:MM").format(message.getSendDate());
 
-        ((TextView)convertView.findViewById(R.id.message_username)).setText(message.getSenderUsername());
-        ((TextView)convertView.findViewById(R.id.message_body)).setText(message.getBody());
-        ((TextView)convertView.findViewById(R.id.message_time)).setText(time);
+        ((TextView)view.findViewById(R.id.message_username)).setText(message.getSenderUsername());
+        ((TextView)view.findViewById(R.id.message_body)).setText(message.getBody());
+        ((TextView)view.findViewById(R.id.message_time)).setText(time);
 
-        return convertView;
+        return view;
     }
 
     public void addMessage(Message message) {

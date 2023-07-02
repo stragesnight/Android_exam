@@ -17,7 +17,7 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
 
 
     public ChatAdapter(@NonNull Context context, List<Chat> chats) {
-        super(context, R.layout.layout_chat);
+        super(context, R.layout.layout_chat, R.id.chat_name);
         _chats = chats;
         addAll(chats);
     }
@@ -25,11 +25,13 @@ public class ChatAdapter extends ArrayAdapter<Chat> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View view = super.getView(position, convertView, parent);
         Chat chat = _chats.get(position);
-        ((TextView)convertView.findViewById(R.id.chat_name)).setText(chat.getName());
-        ((TextView)convertView.findViewById(R.id.chat_last_message)).setText(chat.getLastMessage());
-        convertView.setOnClickListener(v -> ((ChatListActivity)getContext()).onChatClick(chat));
 
-        return convertView;
+        ((TextView)view.findViewById(R.id.chat_name)).setText(chat.getName());
+        ((TextView)view.findViewById(R.id.chat_last_message)).setText(chat.getLastMessage());
+        view.setOnClickListener(v -> ((ChatListActivity)getContext()).onChatClick(chat));
+
+        return view;
     }
 }
