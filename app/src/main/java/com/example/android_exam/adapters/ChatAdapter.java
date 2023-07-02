@@ -10,15 +10,19 @@ import com.example.android_exam.R;
 import com.example.android_exam.activities.ChatListActivity;
 import com.example.android_exam.models.Chat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapter extends ArrayAdapter<Chat> {
-    private List<Chat> _chats;
+    private List<Chat> _chats = null;
 
 
-    public ChatAdapter(@NonNull Context context, List<Chat> chats) {
+    public ChatAdapter(@NonNull Context context) {
         super(context, R.layout.layout_chat, R.id.chat_name);
-        _chats = chats;
+    }
+
+    public void setChats(List<Chat> chats) {
+        _chats = new ArrayList<>(chats);
         addAll(chats);
     }
 

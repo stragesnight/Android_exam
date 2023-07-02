@@ -50,11 +50,7 @@ public class ChatClient implements Runnable {
     private Handler _mainHandler = null;
 
 
-    private ChatClient() {
-        _mainHandler = new Handler(Looper.getMainLooper());
-    }
-
-    public static ChatClient init(String hostAddr, int port, ClientEventHandler handler) {
+    private static ChatClient init(String hostAddr, int port) {
         if (_instance != null)
             return _instance;
 
@@ -65,7 +61,7 @@ public class ChatClient implements Runnable {
         _instance._hostAddr = hostAddr;
         _instance._port = port;
         _instance._handlers = new Stack<>();
-        _instance._handlers.push(handler);
+        _instance._mainHandler = new Handler(Looper.getMainLooper());
 
         _instance._writer = new ChatClientWriter();
         _instance._writerThread = new Thread(_instance._writer);
@@ -75,6 +71,8 @@ public class ChatClient implements Runnable {
     }
 
     public static ChatClient getInstance() {
+        if (_instance == null)
+            _instance = ChatClient.init("178.54.217.55", 4444);
         return _instance;
     }
 

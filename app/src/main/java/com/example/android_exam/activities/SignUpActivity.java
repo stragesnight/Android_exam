@@ -20,11 +20,10 @@ public class SignUpActivity extends AppCompatActivity implements ClientEventHand
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        _client = ChatClient.init("178.54.217.55", 4444, this);
-
         StorageManager storageManager = new StorageManager(this);
         User user = storageManager.loadAuthData();
 
+        ChatClient.getInstance().setHandler(this);
         if (user != null)
             ChatClient.getInstance().signIn(user);
 
@@ -35,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity implements ClientEventHand
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d("MESSAGE", "onDestroy");
         ChatClient.getInstance().resetHandler(this);
     }
 

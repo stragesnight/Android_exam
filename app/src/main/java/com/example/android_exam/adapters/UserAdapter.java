@@ -10,15 +10,19 @@ import com.example.android_exam.R;
 import com.example.android_exam.activities.CreateChatActivity;
 import com.example.android_exam.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends ArrayAdapter<User> {
-    private List<User> _users;
+    private List<User> _users = null;
 
 
-    public UserAdapter(@NonNull Context context, List<User> users) {
+    public UserAdapter(@NonNull Context context) {
         super(context, R.layout.layout_user, R.id.user_name);
-        _users = users;
+    }
+
+    public void setUsers(List<User> users) {
+        _users = new ArrayList<>(users);
         addAll(users);
     }
 

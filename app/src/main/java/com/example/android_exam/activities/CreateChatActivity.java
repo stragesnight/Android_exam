@@ -30,6 +30,10 @@ public class CreateChatActivity extends AppCompatActivity implements ClientEvent
         ChatClient.getInstance().setHandler(this);
         ChatClient.getInstance().getUserList();
 
+        _userAdapter = new UserAdapter(this);
+        ListView listView = findViewById(R.id.list_view_users);
+        listView.setAdapter(_userAdapter);
+
         ((EditText)findViewById(R.id.edit_text_search_username)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -68,9 +72,7 @@ public class CreateChatActivity extends AppCompatActivity implements ClientEvent
             return;
         }
 
-        _userAdapter = new UserAdapter(this, users);
-        ListView listView = findViewById(R.id.list_view_users);
-        listView.setAdapter(_userAdapter);
+        _userAdapter.setUsers(users);
     }
 
     public void onUserClick(User user) {

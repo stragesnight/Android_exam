@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
@@ -26,7 +27,18 @@ public class ChatListActivity extends AppCompatActivity implements ClientEventHa
         ChatClient.getInstance().setHandler(this);
         ChatClient.getInstance().getChatList();
 
+        ListView listViewChats = findViewById(R.id.list_view_chats);
+        _adapter = new ChatAdapter(this);
+        listViewChats.setAdapter(_adapter);
+
         findViewById(R.id.button_add_chat).setOnClickListener(this::onButtonAddChatClick);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ChatClient.getInstance().setHandler(this);
+        ChatClient.getInstance().getChatList();
     }
 
     @Override
@@ -42,9 +54,7 @@ public class ChatListActivity extends AppCompatActivity implements ClientEventHa
             return;
         }
 
-        ListView listViewChats = findViewById(R.id.list_view_chats);
-        _adapter = new ChatAdapter(this, chats);
-        listViewChats.setAdapter(_adapter);
+        _adapter.setChats(chats);
     }
 
     public void onChatClick(Chat chat) {

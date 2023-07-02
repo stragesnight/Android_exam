@@ -25,6 +25,10 @@ public class MainActivity extends AppCompatActivity implements ClientEventHandle
         ChatClient.getInstance().setHandler(this);
         ChatClient.getInstance().getMessageList();
 
+        _messageAdapter = new MessageAdapter(this);
+        ListView listView = findViewById(R.id.list_view_messages);
+        listView.setAdapter(_messageAdapter);
+
         findViewById(R.id.button_send_message).setOnClickListener(this::onButtonSendMessageClick);
     }
 
@@ -37,22 +41,16 @@ public class MainActivity extends AppCompatActivity implements ClientEventHandle
 
     @Override
     public void onGetMessageList(boolean ok, List<Message> messages) {
-        if (!ok) {
-            Toast.makeText(this, R.string.error_unable_to_get_message_list, Toast.LENGTH_LONG).show();
+        if (!ok)
             return;
-        }
 
-        _messageAdapter = new MessageAdapter(this, messages);
-        ListView listView = findViewById(R.id.list_view_messages);
-        listView.setAdapter(_messageAdapter);
+        _messageAdapter.setMessages(messages);
     }
 
     @Override
     public void onGetMessage(boolean ok, Message message) {
-        if (!ok) {
-            Toast.makeText(this, R.string.error_unable_to_get_message_list, Toast.LENGTH_LONG).show();
+        if (!ok)
             return;
-        }
 
         if (_messageAdapter != null)
             _messageAdapter.addMessage(message);
