@@ -22,7 +22,7 @@ public class Message {
         try {
             _senderUsername = reader.readLine();
             _body = reader.readLine().replace("\\n", "\n");
-            _sendDate = new SimpleDateFormat("ss:MM").parse(reader.readLine());
+            _sendDate = new SimpleDateFormat("hh:mm:ss").parse(reader.readLine());
         } catch (Exception e) {
             Log.d("EXCEPTION", e.getMessage());
         }

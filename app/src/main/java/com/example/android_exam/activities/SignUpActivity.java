@@ -21,7 +21,7 @@ public class SignUpActivity extends AppCompatActivity implements ClientEventHand
 
         StorageManager storageManager = new StorageManager();
 
-        _client = ChatClient.init("127.0.0.1", 4444, this);
+        _client = ChatClient.init("178.54.217.55", 4444, this);
 
         User user = storageManager.loadAuthData();
 

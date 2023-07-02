@@ -7,8 +7,9 @@ import com.example.android_exam.models.*;
 
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.function.Function;
+import java.util.function.*;
 
 public class ChatClient implements Runnable {
     public enum Cmd {
@@ -20,7 +21,8 @@ public class ChatClient implements Runnable {
         SEND_MESSAGE,
         GET_MESSAGE,
         GET_CHAT_LIST,
-        GET_MESSAGE_LIST
+        GET_MESSAGE_LIST,
+        QUIT
     }
 
     public enum Status {
@@ -34,6 +36,8 @@ public class ChatClient implements Runnable {
     private String _hostAddr;
     private int _port;
     private Stack<ClientEventHandler> _handlers;
+    private ChatClientWriter _writer;
+    private Thread _writerThread;
 
     private Socket _socket;
     private PrintWriter _out;
@@ -50,8 +54,11 @@ public class ChatClient implements Runnable {
 
         _instance = new ChatClient();
         _thread = new Thread(_instance);
-        _thread.setDaemon(true);
         _thread.start();
+
+        _instance._writer = new ChatClientWriter();
+        _instance._writerThread = new Thread(_instance._writer);
+        _instance._writerThread.start();
 
         _instance._hostAddr = hostAddr;
         _instance._port = port;
@@ -105,18 +112,22 @@ public class ChatClient implements Runnable {
     }
 
     public void sendCmd(Cmd cmd, Object... params) {
-        if (_out == null || _out.checkError())
-            return;
+        _writer.enqueue(i -> {
+            if (_out == null || _out.checkError()) {
+                Log.d("ERROR", "_out == null");
+                return;
+            }
 
-        _out.write(cmd.name());
-        _out.write('\n');
-
-        for (Object param : params) {
-            _out.write(param.toString());
+            _out.write(cmd.name());
             _out.write('\n');
-        }
 
-        _out.flush();
+            for (Object param : params) {
+                _out.write(param.toString());
+                _out.write('\n');
+            }
+
+            _out.flush();
+        });
     }
 
     public void signUp(User user) {
@@ -152,11 +163,15 @@ public class ChatClient implements Runnable {
         sendCmd(Cmd.GET_MESSAGE_LIST);
     }
 
+    public void quit() {
+        sendCmd(Cmd.QUIT);
+    }
+
     private boolean connect() {
         try {
             _socket = new Socket(_hostAddr, _port);
-            _out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(_socket.getOutputStream())), false);
-            _in = new BufferedReader(new InputStreamReader(_socket.getInputStream()));
+            _out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(_socket.getOutputStream(), StandardCharsets.UTF_8)), false);
+            _in = new BufferedReader(new InputStreamReader(_socket.getInputStream(), StandardCharsets.UTF_8));
 
             return true;
         } catch (IOException e) {
