@@ -29,6 +29,7 @@ public class ChatClient implements Runnable {
     }
 
     private static ChatClient _instance;
+    private static Thread _thread;
 
     private String _hostAddr;
     private int _port;
@@ -41,16 +42,23 @@ public class ChatClient implements Runnable {
     private User _currentUser = null;
 
 
-    public ChatClient(String hostAddr, int port, ClientEventHandler handler) {
-        if (_instance != null)
-            return;
+    private ChatClient() { }
 
-        _instance = this;
+    public static ChatClient init(String hostAddr, int port, ClientEventHandler handler) {
+        if (_instance != null)
+            return _instance;
+
+        _instance = new ChatClient();
+        _thread = new Thread(_instance);
+        _thread.setDaemon(true);
+        _thread.start();
 
         _instance._hostAddr = hostAddr;
         _instance._port = port;
         _instance._handlers = new Stack<>();
         _instance._handlers.push(handler);
+
+        return _instance;
     }
 
     public static ChatClient getInstance() {
