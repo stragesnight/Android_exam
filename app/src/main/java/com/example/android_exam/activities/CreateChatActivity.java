@@ -8,11 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.*;
 
 import com.example.android_exam.R;
-import com.example.android_exam.adapters.ChatAdapter;
 import com.example.android_exam.adapters.UserAdapter;
 import com.example.android_exam.domain.*;
 import com.example.android_exam.models.Chat;

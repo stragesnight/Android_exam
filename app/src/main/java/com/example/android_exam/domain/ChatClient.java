@@ -107,7 +107,6 @@ public class ChatClient implements Runnable {
                 boolean ok = _in.readLine().compareTo(Status.OK.name()) == 0;
                 handleCmd(ok, cmd);
             } catch (Exception e) {
-                Log.d("run_EXCEPTION", e.getClass().getName());
                 Log.d("run_EXCEPTION", e.getMessage());
             }
         }
@@ -198,7 +197,7 @@ public class ChatClient implements Runnable {
         if (_handlers.empty())
             return;
 
-        ClientEventHandler handler = _handlers.pop();
+        ClientEventHandler handler = _handlers.peek();
 
         switch (cmd) {
             case SIGN_UP:
@@ -242,7 +241,7 @@ public class ChatClient implements Runnable {
         int length = Integer.parseInt(_in.readLine());
         List<T> res = new ArrayList<>(length);
 
-        for (; length >= 0; --length)
+        for (; length > 0; --length)
             res.add(converter.apply(_in));
 
         return res;
